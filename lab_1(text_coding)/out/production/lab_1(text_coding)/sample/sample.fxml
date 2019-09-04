@@ -18,7 +18,7 @@
                 <Menu mnemonicParsing="false" text="Menu">
                     <items>
                         <MenuItem fx:id="menuOpenFile" mnemonicParsing="false" onAction="#openFile" text="Open text file" />
-                        <MenuItem fx:id="menuSaveFile" mnemonicParsing="false" onAction="#openFile" text="Save as text file" />
+                        <MenuItem fx:id="menuSaveFile" mnemonicParsing="false" onAction="#saveFile" text="Save as text file" />
                         <MenuItem fx:id="menuEncodeText" mnemonicParsing="false" onAction="#openFile" text="Encode text" />
                         <MenuItem fx:id="menuDecodeText" mnemonicParsing="false" onAction="#openFile" text="Decode text" />
                     </items>
