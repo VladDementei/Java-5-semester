@@ -3,7 +3,7 @@ package sample;
 import java.io.*;
 
 public class FileUtils {
-    public static String readFile(File file) throws IOException{
+    public static String readTextFile(File file) throws IOException{
         char[] buf = new char[1024];
         StringBuffer answer = new StringBuffer();
         Reader reader = new InputStreamReader(new FileInputStream(file), "Cp1251");
@@ -15,9 +15,15 @@ public class FileUtils {
         return answer.toString();
     }
 
-    public static void writeFile(File file, String text) throws IOException{
-        Writer writer = new OutputStreamWriter(new FileOutputStream(file), "Cp1251");
+    public static void writeTextFile(File file, String text) throws IOException{
+        Writer writer = new FileWriter(file);
         writer.write(text);
+        writer.close();
+    }
+
+    public static void writeByteFile(File file, String text) throws IOException{
+        OutputStream writer = new FileOutputStream(file);
+        writer.write(text.getBytes());
         writer.close();
     }
 }
