@@ -19,7 +19,7 @@
                     <items>
                         <MenuItem fx:id="menuOpenFile" mnemonicParsing="false" onAction="#openFile" text="Open file" />
                         <MenuItem fx:id="menuSaveTextFile" mnemonicParsing="false" onAction="#saveTextFile" text="Save as text file" />
-                        <MenuItem fx:id="menuEncodeSave" mnemonicParsing="false" onAction="#encodeText" text="Encode and save text" />
+                        <MenuItem fx:id="menuEncodeSave" mnemonicParsing="false" onAction="#encodeTextAndSave" text="Encode and save text" />
                     </items>
                 </Menu>
             </menus>

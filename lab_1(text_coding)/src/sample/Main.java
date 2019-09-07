@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -22,7 +23,11 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                ((Controller) loader.getController()).askForSaveChangedText("Would you like to save file first?");
+                ButtonType buttonType =((Controller) loader.getController()).
+                        askForSaveChangedText("Would you like to save file first?");
+                if(buttonType != null && buttonType == ButtonType.CLOSE) {
+                    event.consume();
+                }
             }
         });
         primaryStage.show();
