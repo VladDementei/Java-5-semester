@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.ListView?>
+<?import sample.StudentCellFactory?>
+<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <ListView fx:id="listView" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
+            <cellFactory>
+                <StudentCellFactory/>
+            </cellFactory>
+        </ListView>
+
+        <MenuBar layoutY="2.0" prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Menu">
+                    <items>
+                        <MenuItem fx:id="menuOpenDataFile" mnemonicParsing="false" onAction="#openFile" text="Open file" />
+                        <MenuItem fx:id="menuSaveDataFile" mnemonicParsing="false" onAction="#saveFile" text="Save as text file" />
+                        <MenuItem fx:id="menuAnalyseData" mnemonicParsing="false" onAction="#encodeTextAndSave" text="Encode and save text" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
+</AnchorPane>
