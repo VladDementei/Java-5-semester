@@ -85,7 +85,7 @@ public class Controller {
             File file = getTextFileToWrite("Encoded files", "cf");
             if (file != null) {
                 try {
-                    FileUtils.writeTextFile(lastOpenedFile, CodeUtils.encodeText(inputArea.getText(), password));
+                    FileUtils.writeTextFile(file, CodeUtils.encodeText(inputArea.getText(), password));
                     lastSavedText = inputArea.getText();
                     lastOpenedFile = file;
                 } catch (IOException ex) {
