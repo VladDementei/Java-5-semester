@@ -1,6 +1,9 @@
 package sample;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String surname;
     private int group;
     private int markMath;

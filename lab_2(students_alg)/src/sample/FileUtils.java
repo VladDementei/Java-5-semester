@@ -5,28 +5,15 @@ import java.nio.charset.StandardCharsets;
 
 public class FileUtils {
 
-    public static String readTextFile(File file) throws IOException{
-        char[] buf = new char[1024];
-        StringBuffer answer = new StringBuffer();
-        Reader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
-        //Reader reader = new FileReader(file);
-        int flag;
-        while ((flag = reader.read(buf))>= 0){
-            answer.append(String.valueOf(buf, 0, flag));
-        }
-        reader.close();
-        return answer.toString();
+    public static void serialize(Serializable object, File file)throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+        oos.writeObject(object);
+        oos.flush();
+        oos.close();
     }
 
-    public static void writeTextFile(File file, String text) throws IOException{
-        Writer writer = new FileWriter(file);
-        writer.write(text);
-        writer.close();
+    public static Object deserialize(File file) throws IOException, ClassNotFoundException{
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+        return ois.readObject();
     }
-
-    /*public static void writeByteFile(File file, String text) throws IOException{
-        OutputStream writer = new FileOutputStream(file);
-        writer.write(text.getBytes());
-        writer.close();
-    }*/
 }
