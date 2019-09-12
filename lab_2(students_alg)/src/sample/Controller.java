@@ -10,32 +10,39 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Controller implements Initializable {
 
     @FXML
-    private ListView<Student> listView;
+    private ListView<BasicInfo> listView;
     @FXML
     private MenuItem menuOpenData;
 
-    private ObservableList<Student> studentObservableList;
-    File lastOpenedFile;
+    private ObservableList<BasicInfo> studentObservableList;
+    private File lastOpenedFile;
 
     public Controller()  {
         studentObservableList = FXCollections.observableArrayList();
-//        studentObservableList.addAll(
-//                new Student("John", 1, 6, 10),
-//                new Student("Sam", 1, 5, 3),
-//                new Student("David", 1, 7, 8),
-//                new Student("Alex", 1, 4, 6),
-//                new Student("Sue", 1, 8, 9)
-//        );
+        studentObservableList.addAll(
+                new BasicInfo(1),
+                new Student("John", 1, 6, 10),
+                new Student("Sam", 1, 5, 3),
+                new Student("David", 1, 7, 8),
+                new BasicInfo(2),
+                new Student("Alex", 2, 4, 6),
+                new Student("Sue", 2, 8, 9)
+        );
+        countAverageGroupMark();
     }
 
     @Override
@@ -44,8 +51,20 @@ public class Controller implements Initializable {
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         listView.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.DELETE){
-                System.out.println(Arrays.toString(listView.getSelectionModel().getSelectedIndices().toArray()));
-                studentObservableList.removeAll(listView.getSelectionModel().getSelectedItems());
+                //System.out.println(Arrays.toString(listView.getSelectionModel().getSelectedIndices().toArray()));
+                List<BasicInfo> toDelete  = listView.getSelectionModel().getSelectedItems().stream().sorted((o1, o2) -> {
+                    if(o2 instanceof Student){
+                            return 1;
+                    }
+                    return -1;
+                }).collect(Collectors.toList());
+                for(BasicInfo elem: toDelete){
+                    if(elem instanceof Student){
+                        studentObservableList.remove(elem);
+                    }else {
+                       studentObservableList.setAll(studentObservableList.stream().filter(s -> s.getGroup() != elem.getGroup()).collect(Collectors.toList()));
+                    }
+                }
             }
         });
     }
@@ -104,7 +123,29 @@ public class Controller implements Initializable {
         AddStudentDialog dialog = new AddStudentDialog();
         Student newStudent = dialog.startDialog();
         if(newStudent != null){
-            studentObservableList.add(newStudent);
+            if(studentObservableList.stream().anyMatch(elem -> elem.getGroup() == newStudent.getGroup())){
+                long index = studentObservableList.stream().takeWhile(elem -> elem.getGroup() != newStudent.getGroup()).count();
+                studentObservableList.add((int)index + 1, newStudent);
+            }else {
+                studentObservableList.add(new BasicInfo(newStudent.getGroup()));
+                studentObservableList.add(newStudent);
+            }
         }
     }
+
+    public void analyze(ActionEvent event){
+    }
+
+    private void countAverageGroupMark(){
+        List<BasicInfo> groups = studentObservableList.stream().filter(elem -> !(elem instanceof Student)).collect(Collectors.toList());
+        groups.stream().forEach(elem -> elem.setAverageMark(lala(elem)));
+    }
+
+    private double lala(BasicInfo elem){
+        Stream<BasicInfo> filtered = studentObservableList.stream().filter(student -> (student instanceof Student) && (student.getGroup() == elem.getGroup()));
+        long size = filtered.count();
+        double a = filtered.reduce(0.0, (acc, student) -> acc + student.getAverageMark(), null)/size;
+        return a;
+    }
+
 }

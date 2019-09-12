@@ -22,6 +22,7 @@
                         <MenuItem fx:id="menuOpenData" mnemonicParsing="false" onAction="#openFile" text="Open data file" />
                         <MenuItem fx:id="menuSaveData" mnemonicParsing="false" onAction="#saveFile" text="Save data to file" />
                         <MenuItem fx:id="menuAddStudent" mnemonicParsing="false" onAction="#addStudent" text="Add student" />
+                        <MenuItem fx:id="menuAnalyze" mnemonicParsing="false" onAction="#analyze" text="Sort" />
                     </items>
                 </Menu>
             </menus>

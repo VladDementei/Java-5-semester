@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 
 import java.io.IOException;
 
-public class StudentListViewCell extends ListCell<Student> {
+public class StudentListViewCell extends ListCell<BasicInfo> {
 
     @FXML
     private Label title;
@@ -33,14 +33,18 @@ public class StudentListViewCell extends ListCell<Student> {
     }
 
     @Override
-    protected void updateItem(Student student, boolean empty) {
+    protected void updateItem(BasicInfo student, boolean empty) {
         super.updateItem(student, empty);
 
         if (empty) {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         } else {
-            title.setText(student.getSurname());
+            if(student instanceof Student){
+                title.setText(((Student)student).getSurname());
+            }else {
+                title.setText("Student of " + student.getGroup() + " group");
+            }
             mark.setText(String.valueOf(student.getAverageMark()));
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
