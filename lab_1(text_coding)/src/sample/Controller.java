@@ -66,17 +66,19 @@ public class Controller {
         return  fileChooser.showSaveDialog(menuOpenFile.getParentPopup().getScene().getWindow());
     }
 
-    public void saveTextFile(ActionEvent event){
+    public boolean saveTextFile(ActionEvent event){
         File file = getTextFileToWrite("Text Files", "txt");
         if (file != null) {
             try {
                 FileUtils.writeTextFile(file, inputArea.getText());
                 lastSavedText = inputArea.getText();
                 lastOpenedFile = file;
+                return true;
             } catch (IOException ex) {
                 Dialogs.showErrorDialog("File problem: " + ex.getMessage());
             }
         }
+        return false;
     }
 
     public void encodeTextAndSave(ActionEvent event){
@@ -99,7 +101,10 @@ public class Controller {
         if(isTextChanged()) {
             ButtonType answer = Dialogs.showConfirmationDialog(question);
             if (answer != null && answer == ButtonType.YES) {
-                saveTextFile(null);
+                boolean resultSave = saveTextFile(null);
+                if(!resultSave){
+                    answer = ButtonType.CLOSE;
+                }
             }
             return answer;
         }
