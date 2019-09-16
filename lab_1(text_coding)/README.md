@@ -1,7 +1,5 @@
 # Лабораторная работа 1 (потоки ввода-вывода)
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
-
 ## Задание
   - Создать приложение с меню, полем для ввода, интерфейсом пользователя (**JavaFX**)
   
@@ -26,7 +24,7 @@
   
 ## Демонстрация
   
-![](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/main.png)
-![](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/encode.png)
+![Главное окно](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/main.png)
+![Диалог сохранения](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/encode.png)
 
 
