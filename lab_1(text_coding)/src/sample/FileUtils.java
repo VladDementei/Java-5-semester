@@ -9,7 +9,6 @@ public class FileUtils {
         char[] buf = new char[1024];
         StringBuffer answer = new StringBuffer();
         Reader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
-        //Reader reader = new FileReader(file);
         int flag;
         while ((flag = reader.read(buf))>= 0){
             answer.append(String.valueOf(buf, 0, flag));
@@ -23,10 +22,4 @@ public class FileUtils {
         writer.write(text);
         writer.close();
     }
-
-    /*public static void writeByteFile(File file, String text) throws IOException{
-        OutputStream writer = new FileOutputStream(file);
-        writer.write(text.getBytes());
-        writer.close();
-    }*/
 }
