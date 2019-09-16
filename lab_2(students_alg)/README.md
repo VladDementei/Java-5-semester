@@ -23,6 +23,8 @@
       - номер группы
       - результаты экзаменов по математике.
       - результаты экзаменов по учебной практике
+      
+  - Обработка исключений сериализации
        
   - По нажатию пункта меню **Sort** вывести группы (с указанием студентов и их среднего балла) и средний балл группы в порядке убывания средней успеваемости.
 
@@ -43,7 +45,7 @@
   
 ## Демонстрация
   
-![Главное окно](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/main.png)
-![Диалог сохранения](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/encode.png)
+![Главное окно](https://github.com/VladDementei/Java-5-semester/blob/master/lab_2(students_alg)/pictures/main.png)
+![Диалог сохранения](https://github.com/VladDementei/Java-5-semester/blob/master/lab_2(students_alg)/pictures/add_student.png)
 
 
