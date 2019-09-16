@@ -24,5 +24,9 @@
   - Текст кодируется паролем посимвольно и циклично ```text[i] = (char)(text[i] ^ password[i%password.length]); ```
   - Запоминается последняя открытая директория
   
-![Иллюстрация к проекту](https://github.com/jon/coolproject/raw/master/image/image.png)
+## Демонстрация
+  
+![](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/main.png)
+![](https://github.com/VladDementei/Java-5-semester/blob/master/lab_1(text_coding)/pictures/encode.png)
+
 
