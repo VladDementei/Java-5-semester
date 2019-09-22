@@ -3,3 +3,4 @@
 
 - [лабораторная 1 (потоки ввода-вывода)](https://github.com/VladDementei/Java-5-semester/tree/master/lab_1(text_coding))
 - [лабораторная 2 (работа со stream)](https://github.com/VladDementei/Java-5-semester/tree/master/lab_2(students_alg))
+- [лабораторная 3 (интернационализация, отражения)](https://github.com/VladDementei/Java-5-semester/tree/master/lab_3(i18n%2C%20reflection))
