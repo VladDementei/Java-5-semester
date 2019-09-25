@@ -9,13 +9,12 @@ import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controller implements Initializable {
 
-    @FXML
-    private MenuItem menuOpenData;
     @FXML
     private ListView<String> listView;
     private ObservableList<String> functionsList;
@@ -24,10 +23,51 @@ public class Controller implements Initializable {
         functionsList = FXCollections.observableArrayList();
         functionsList.addAll(FileUtils.readFile(new File("src\\calc.properties")));
     }
+    // That's right.
+    Map<String,Class> builtInMap = new HashMap<>();{
+        builtInMap.put("int", Integer.TYPE );
+        builtInMap.put("long", Long.TYPE );
+        builtInMap.put("double", Double.TYPE );
+        builtInMap.put("float", Float.TYPE );
+        builtInMap.put("bool", Boolean.TYPE );
+        builtInMap.put("char", Character.TYPE );
+        builtInMap.put("byte", Byte.TYPE );
+        builtInMap.put("void", Void.TYPE );
+        builtInMap.put("short", Short.TYPE );
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listView.setItems(functionsList);
+        listView.setOnMouseClicked(event -> {
+            if(event.getClickCount() == 2) {
+                StringTokenizer stringTokenizer = new StringTokenizer(listView.getSelectionModel().getSelectedItem(), "(,) ");
+                String func = stringTokenizer.nextToken();
+                List<Class<?>> classList = new ArrayList<>();
+                while (stringTokenizer.hasMoreTokens()){
+                    String token = stringTokenizer.nextToken();
+                    if(builtInMap.containsKey(token)) {
+                        classList.add( builtInMap.get(token) );
+                    }else{
+                        try {
+                            classList.add(Class.forName(token));
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                try {
+                    Class myCl = Class.forName(func.substring(0, func.lastIndexOf(".")));
+                    CalculateFunctionDialog dialog = new CalculateFunctionDialog(myCl.getMethod(func.substring(func.lastIndexOf(".")+1), classList.toArray(new Class[classList.size()])));
+                    dialog.startDialog();
+
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void openFile(ActionEvent event) {

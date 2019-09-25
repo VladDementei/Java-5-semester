@@ -16,10 +16,4 @@ public class FileUtils {
         }
         return fileLines;
     }
-
-    public static void writeTextFile(File file, String text) throws IOException{
-        Writer writer = new FileWriter(file);
-        writer.write(text);
-        writer.close();
-    }
 }
