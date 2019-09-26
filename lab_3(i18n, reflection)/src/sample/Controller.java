@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
 
@@ -21,7 +23,12 @@ public class Controller implements Initializable {
 
     public Controller() throws IOException {
         functionsList = FXCollections.observableArrayList();
-        functionsList.addAll(FileUtils.readFile(new File("src\\calc.properties")));
+        try(BufferedReader reader = new BufferedReader(new FileReader(new File("src\\calc.properties")))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                functionsList.add(line);
+            }
+        }
     }
 
 
@@ -30,36 +37,29 @@ public class Controller implements Initializable {
         listView.setItems(functionsList);
         listView.setOnMouseClicked(event -> {
             if(event.getClickCount() == 2) {
-                StringTokenizer stringTokenizer = new StringTokenizer(listView.getSelectionModel().getSelectedItem(), "(,) ");
-                String func = stringTokenizer.nextToken();
-                List<Class<?>> classList = new ArrayList<>();
-                while (stringTokenizer.hasMoreTokens()){
-                    String token = stringTokenizer.nextToken();
-                    if(Type.isPrimitiveType(token)) {
-                        classList.add(Type.getPrimitiveClass(token));
-                    }else{
-                        try {
-                            classList.add(Class.forName(token));
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                try {
-                    Class myCl = Class.forName(func.substring(0, func.lastIndexOf(".")));
-                    CalculateFunctionDialog dialog = new CalculateFunctionDialog(myCl.getMethod(func.substring(func.lastIndexOf(".")+1), classList.toArray(new Class[classList.size()])));
-                    dialog.startDialog();
-
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
+                initFunctionDialog();
+            }
+        });
+        listView.setOnKeyPressed(e-> {
+            if(e.getCode() == KeyCode.ENTER){
+                initFunctionDialog();
             }
         });
     }
 
-    public void openFile(ActionEvent event) {
+    private void initFunctionDialog(){
+        String signature = listView.getSelectionModel().getSelectedItem();
+        try {
+            CalculateFunctionDialog dialog = new CalculateFunctionDialog(
+                    Class.forName(ParseUtils.getClassName(signature)).getMethod(ParseUtils.getFunctionName(signature),
+                            ParseUtils.getParamsTypes(signature).toArray(new Class[0])));
+            dialog.show();
+        } catch (ClassNotFoundException e) {
+            Dialogs.showErrorDialog("Class not found");
+        } catch (NoSuchMethodException e) {
+            Dialogs.showErrorDialog("Method not found");
+        }
     }
 
+    public void openFile(ActionEvent event) {}
 }

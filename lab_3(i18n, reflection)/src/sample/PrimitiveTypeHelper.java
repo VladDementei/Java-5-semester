@@ -5,7 +5,7 @@ import javafx.util.Pair;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Type {
+public class PrimitiveTypeHelper {
 
     private static Map<String, Pair<Class,Class>> builtInMap;
     static {
