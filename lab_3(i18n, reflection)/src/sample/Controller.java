@@ -23,18 +23,7 @@ public class Controller implements Initializable {
         functionsList = FXCollections.observableArrayList();
         functionsList.addAll(FileUtils.readFile(new File("src\\calc.properties")));
     }
-    // That's right.
-    Map<String,Class> builtInMap = new HashMap<>();{
-        builtInMap.put("int", Integer.TYPE );
-        builtInMap.put("long", Long.TYPE );
-        builtInMap.put("double", Double.TYPE );
-        builtInMap.put("float", Float.TYPE );
-        builtInMap.put("bool", Boolean.TYPE );
-        builtInMap.put("char", Character.TYPE );
-        builtInMap.put("byte", Byte.TYPE );
-        builtInMap.put("void", Void.TYPE );
-        builtInMap.put("short", Short.TYPE );
-    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,8 +35,8 @@ public class Controller implements Initializable {
                 List<Class<?>> classList = new ArrayList<>();
                 while (stringTokenizer.hasMoreTokens()){
                     String token = stringTokenizer.nextToken();
-                    if(builtInMap.containsKey(token)) {
-                        classList.add( builtInMap.get(token) );
+                    if(Type.isPrimitiveType(token)) {
+                        classList.add(Type.getPrimitiveClass(token));
                     }else{
                         try {
                             classList.add(Class.forName(token));

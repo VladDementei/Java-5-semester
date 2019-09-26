@@ -4,7 +4,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class CalculateFunctionDialog extends Dialog<String> {
@@ -22,11 +24,17 @@ public class CalculateFunctionDialog extends Dialog<String> {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 50, 10, 10));
 
+        TextField[] textFieldsParams = new TextField[method.getParameterCount()];
 
         for(int i = 0; i < method.getParameterCount(); i++) {
             grid.add(new Label(method.getParameters()[i].toString()), 0, i);
-            grid.add(new TextField(), 1, i);
+            textFieldsParams[i] = new TextField();
+            grid.add(textFieldsParams[i], 1, i);
         }
+
+        grid.add(new Label("Result"), 0, method.getParameterCount());
+        TextField answer = new TextField();
+        grid.add(answer, 1, method.getParameterCount());
 
 
         /*Node addButton = this.getDialogPane().lookupButton(addButtonType);
@@ -51,8 +59,29 @@ public class CalculateFunctionDialog extends Dialog<String> {
         Button execute = new Button("Execute");
         execute.setOnMouseClicked(event -> {
             System.out.println("Click");
+            try {
+                Object[] funcParams = new Object[method.getParameterCount()];
+                for(int i = 0; i < method.getParameterCount(); i++){
+                    try {
+                        if (method.getParameterTypes()[i].isPrimitive()) {
+                            funcParams[i] = Type.getWrapperClass(method.getParameterTypes()[i].getName())
+                                    .getMethod("valueOf", String.class)
+                                    .invoke(null, textFieldsParams[i].getText());
+                        } else {
+                            funcParams[i] = method.getParameterTypes()[i].getConstructor(String.class).newInstance(textFieldsParams[i].getText());
+                        }
+                    } catch (NoSuchMethodException e) {
+                        Dialogs.showErrorDialog("Not found constructor from String to " + method.getParameterTypes()[i]);
+                    } catch (InstantiationException e) { e.printStackTrace(); }//impossible
+                }
+                answer.setText(method.invoke(null, funcParams).toString());
+            } catch (IllegalAccessException e) {//try to get/set private fields, impossible
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {//wrong params
+                Dialogs.showErrorDialog(e.getCause().toString());
+            }catch (IllegalArgumentException e){}
         });
-        grid.add(execute, 0, method.getParameterCount());
+        grid.add(execute, 1, method.getParameterCount()+1);
 
 
         this.getDialogPane().setContent(grid);
