@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 import java.io.BufferedReader;
@@ -19,6 +20,10 @@ public class Controller implements Initializable {
 
     @FXML
     private ListView<String> listView;
+    @FXML
+    private ImageView BelFlag;
+    @FXML
+    private ImageView UKFlag;
     private ObservableList<String> functionsList;
 
     public Controller() throws IOException {
