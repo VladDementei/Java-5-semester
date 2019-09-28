@@ -16,6 +16,6 @@
   
 ## Демонстрация
   
-![Главное окно](https://github.com/VladDementei/Java-5-semester/blob/master/lab_3(i18n%2C%20reflection)/pictures/functions.png)
+![Главное окно](https://github.com/VladDementei/Java-5-semester/blob/master/lab_3(i18n%2C%20reflection)/pictures/function.png)
  
 
