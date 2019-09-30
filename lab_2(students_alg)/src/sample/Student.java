@@ -2,7 +2,7 @@ package sample;
 
 import java.io.Serializable;
 
-public class Student extends BasicInfo implements Serializable {
+public class Student extends GroupInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String surname;
     private int markMath;
@@ -23,5 +23,4 @@ public class Student extends BasicInfo implements Serializable {
     public double getAverageMark(){
         return ((double)(markMath + markEP))/2;
     }
-
 }

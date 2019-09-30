@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 
 import java.io.IOException;
 
-public class StudentListViewCell extends ListCell<BasicInfo> {
+public class StudentListViewCell extends ListCell<GroupInfo> {
 
     @FXML
     private Label title;
@@ -26,16 +26,14 @@ public class StudentListViewCell extends ListCell<BasicInfo> {
             loader.setController(this);
             loader.setRoot(this);
             loader.load();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    protected void updateItem(BasicInfo student, boolean empty) {
+    protected void updateItem(GroupInfo student, boolean empty) {
         super.updateItem(student, empty);
-
         if (empty) {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);

@@ -12,7 +12,6 @@ import java.util.Optional;
 public class AddStudentDialog extends Dialog<Student> {
 
     public AddStudentDialog() {
-        super();
         this.setTitle("Add student");
         this.setHeaderText("Fill student information");
 

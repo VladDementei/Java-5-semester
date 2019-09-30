@@ -4,10 +4,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 
-public class StudentCellFactory implements Callback<ListView<BasicInfo>, ListCell<BasicInfo>> {
+public class StudentCellFactory implements Callback<ListView<GroupInfo>, ListCell<GroupInfo>> {
 
     @Override
-    public ListCell<BasicInfo> call(ListView<BasicInfo> param) {
+    public ListCell<GroupInfo> call(ListView<GroupInfo> param) {
         return new StudentListViewCell();
     }
 }

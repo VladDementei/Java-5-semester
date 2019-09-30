@@ -19,21 +19,21 @@ import java.util.stream.Collectors;
 public class Controller implements Initializable {
 
     @FXML
-    private ListView<BasicInfo> listView;
+    private ListView<GroupInfo> listView;
     @FXML
     private MenuItem menuOpenData;
 
-    private ObservableList<BasicInfo> studentObservableList;
+    private ObservableList<GroupInfo> studentObservableList;
     private File lastOpenedFile;
 
     public Controller()  {
         studentObservableList = FXCollections.observableArrayList();
 //        studentObservableList.addAll(
-//                new BasicInfo(1),
+//                new GroupInfo(1),
 //                new Student("John", 1, 6, 10),
 //                new Student("Sam", 1, 5, 3),
 //                new Student("David", 1, 7, 8),
-//                new BasicInfo(2),
+//                new GroupInfo(2),
 //                new Student("Alex", 2, 4, 6),
 //                new Student("Sue", 2, 8, 9)
 //        );
@@ -47,13 +47,14 @@ public class Controller implements Initializable {
         listView.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.DELETE){
                 //System.out.println(Arrays.toString(listView.getSelectionModel().getSelectedIndices().toArray()));
-                List<BasicInfo> toDelete  = listView.getSelectionModel().getSelectedItems().stream().sorted((o1, o2) -> {
+                List<GroupInfo> toDelete  = listView.getSelectionModel().getSelectedItems().stream().sorted((o1, o2) -> {
                     if(o2 instanceof Student){
                             return 1;
                     }
                     return -1;
                 }).collect(Collectors.toList());
-                for(BasicInfo elem: toDelete){
+
+                for(GroupInfo elem: toDelete){
                     if(elem instanceof Student){
                         studentObservableList.remove(elem);
                     }else {
@@ -69,7 +70,7 @@ public class Controller implements Initializable {
 
     public File getSerFileToRead(){
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory((lastOpenedFile == null) ? new File("\\") : lastOpenedFile.getParentFile());
+        fileChooser.setInitialDirectory((lastOpenedFile == null) ? new File(".").getAbsoluteFile() : lastOpenedFile.getParentFile());
         List<String> extensions = new ArrayList<>();
         extensions.add("*.ser");
         extensions.add("*.dat");
@@ -79,7 +80,7 @@ public class Controller implements Initializable {
 
     public File getSerFileToWrite(){
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory((lastOpenedFile == null) ? new File("\\") : lastOpenedFile.getParentFile());
+        fileChooser.setInitialDirectory((lastOpenedFile == null) ? new File(".").getAbsoluteFile() : lastOpenedFile.getParentFile());
         List<String> extensions = new ArrayList<>();
         extensions.add("*.ser");
         extensions.add("*.dat");
@@ -91,13 +92,11 @@ public class Controller implements Initializable {
         File file = getSerFileToRead();
         if(file != null){
             try {
-                studentObservableList.setAll((ArrayList<BasicInfo>)FileUtils.deserialize(file));
+                studentObservableList.setAll((ArrayList<GroupInfo>)FileUtils.deserialize(file));
                 lastOpenedFile = file;
             } catch (InvalidClassException | ClassNotFoundException | ClassCastException e){
                 e.printStackTrace();
-                System.out.println(e.getMessage());
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 Dialogs.showErrorDialog(e.getMessage());
             }
         }
@@ -107,7 +106,7 @@ public class Controller implements Initializable {
         File file = getSerFileToWrite();
         if(file != null){
             try {
-                FileUtils.serialize(new ArrayList<>(studentObservableList.subList(0, studentObservableList.size())), file);
+                FileUtils.serialize(new ArrayList<>(studentObservableList), file);
                 lastOpenedFile = file;
             } catch (IOException e) {
                 Dialogs.showErrorDialog(e.getMessage());
@@ -125,7 +124,7 @@ public class Controller implements Initializable {
                         .count();
                 studentObservableList.add((int)index + 1, newStudent);
             }else {
-                studentObservableList.add(new BasicInfo(newStudent.getGroup()));
+                studentObservableList.add(new GroupInfo(newStudent.getGroup()));
                 studentObservableList.add(newStudent);
             }
             countAllGroupsMarks();
@@ -133,8 +132,8 @@ public class Controller implements Initializable {
     }
 
     public void analyze(ActionEvent event){
-        List<Map.Entry<Integer, List<BasicInfo>>> list = studentObservableList.stream()
-                .collect(Collectors.groupingBy(BasicInfo::getGroup))
+        List<Map.Entry<Integer, List<GroupInfo>>> list = studentObservableList.stream()
+                .collect(Collectors.groupingBy(GroupInfo::getGroup))
                 .entrySet()
                 .stream()
                 .sorted((o1,o2)->Double.compare(o2.getValue().get(0).getAverageMark(), o1.getValue().get(0).getAverageMark()))
@@ -144,14 +143,14 @@ public class Controller implements Initializable {
     }
 
     private void countAllGroupsMarks(){
-        List<BasicInfo> groups = studentObservableList.stream()
+        List<GroupInfo> groups = studentObservableList.stream()
                 .filter(elem -> !(elem instanceof Student))
                 .collect(Collectors.toList());
         groups.forEach(elem -> elem.setAverageMark(countGroupMark(elem.getGroup())));
     }
 
     private double countGroupMark(int group){
-        List<BasicInfo> groupList = studentObservableList.stream()
+        List<GroupInfo> groupList = studentObservableList.stream()
                 .filter(student -> (student instanceof Student) && (student.getGroup() == group))
                 .collect(Collectors.toList());
         return groupList.stream()

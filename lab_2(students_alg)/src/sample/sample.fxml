@@ -17,7 +17,7 @@
 
         <MenuBar layoutY="2.0" prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <menus>
-                <Menu mnemonicParsing="false" text="Menu">
+                <Menu mnemonicParsing="false" text="Options">
                     <items>
                         <MenuItem fx:id="menuOpenData" mnemonicParsing="false" onAction="#openFile" text="Open data file" />
                         <MenuItem fx:id="menuSaveData" mnemonicParsing="false" onAction="#saveFile" text="Save data to file" />
