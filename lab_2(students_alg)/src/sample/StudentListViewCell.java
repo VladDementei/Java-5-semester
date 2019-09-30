@@ -41,7 +41,7 @@ public class StudentListViewCell extends ListCell<GroupInfo> {
             if(student instanceof Student){
                 title.setText(((Student)student).getSurname());
             }else {
-                title.setText("Student of " + student.getGroup() + " group");
+                title.setText("Students of " + student.getGroup() + " group");
             }
             mark.setText(String.valueOf(student.getAverageMark()));
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);

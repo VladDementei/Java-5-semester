@@ -154,6 +154,6 @@ public class Controller implements Initializable {
                 .filter(student -> (student instanceof Student) && (student.getGroup() == group))
                 .collect(Collectors.toList());
         return groupList.stream()
-                .reduce(0.0, (acc, student) -> acc + student.getAverageMark(), Double::sum)/groupList.size();
+                .reduce(0.0, (acc, student) -> acc + student.getAverageMark(), Double::sum)/Math.max(1,groupList.size());// что бы не было Nan
     }
 }
