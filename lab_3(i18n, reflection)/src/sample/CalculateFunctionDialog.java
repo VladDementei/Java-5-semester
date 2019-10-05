@@ -10,8 +10,8 @@ import java.lang.reflect.Method;
 public class CalculateFunctionDialog extends Dialog<String> {
 
     public CalculateFunctionDialog(Method method) {
-        this.setTitle("Function executing");
-        this.setHeaderText("Fill params text fields and press execute ");
+        this.setTitle(LanguageBundle.getString("calculateFunctionDialogTitle"));
+        this.setHeaderText(LanguageBundle.getString("calculateFunctionDialogHeader"));
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -25,11 +25,11 @@ public class CalculateFunctionDialog extends Dialog<String> {
             grid.add(textFieldsParams[i], 1, i);
         }
 
-        grid.add(new Label("Result"), 0, method.getParameterCount());
+        grid.add(new Label(LanguageBundle.getString("result")), 0, method.getParameterCount());
         TextField answer = new TextField();
         grid.add(answer, 1, method.getParameterCount());
 
-        Button execute = new Button("Execute");
+        Button execute = new Button(LanguageBundle.getString("execute"));
         execute.setOnMouseClicked(event -> {
             int i = 0;
             try {
@@ -49,7 +49,7 @@ public class CalculateFunctionDialog extends Dialog<String> {
             } catch (InvocationTargetException e) {//wrong params
                 Dialogs.showErrorDialog(e.getCause().toString());
             }catch (NoSuchMethodException e) {
-                Dialogs.showErrorDialog("Not found constructor from String to " + method.getParameterTypes()[i]);
+                Dialogs.showErrorDialog(LanguageBundle.getString("notFountConstructorFromStringTo") + method.getParameterTypes()[i]);
             }
         });
         grid.add(execute, 1, method.getParameterCount()+1);

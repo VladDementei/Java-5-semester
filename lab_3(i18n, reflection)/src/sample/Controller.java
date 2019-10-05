@@ -2,17 +2,15 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 
@@ -24,6 +22,8 @@ public class Controller implements Initializable {
     private ImageView BelFlag;
     @FXML
     private ImageView UKFlag;
+
+    private Map<ImageView, Locale> langMap;
     private ObservableList<String> functionsList;
 
     public Controller() throws IOException {
@@ -36,9 +36,12 @@ public class Controller implements Initializable {
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        langMap = new HashMap<>();
+        langMap.put(UKFlag, Locale.UK);
+        langMap.put(BelFlag, new Locale("be", "BY"));
+        setFlagParentsTransparent();
         listView.setItems(functionsList);
         listView.setOnMouseClicked(event -> {
             if(event.getClickCount() == 2) {
@@ -52,6 +55,12 @@ public class Controller implements Initializable {
         });
     }
 
+    private void setFlagParentsTransparent(){
+        for(ImageView elem: langMap.keySet()){
+            elem.getParent().setStyle("-fx-padding: 5;");
+        }
+    }
+
     private void initFunctionDialog(){
         String signature = listView.getSelectionModel().getSelectedItem();
         try {
@@ -60,11 +69,17 @@ public class Controller implements Initializable {
                             ParseUtils.getParamsTypes(signature).toArray(new Class[0])));
             dialog.show();
         } catch (ClassNotFoundException e) {
-            Dialogs.showErrorDialog("Class not found");
+            Dialogs.showErrorDialog(LanguageBundle.getString("classNotFound"));
         } catch (NoSuchMethodException e) {
-            Dialogs.showErrorDialog("Method not found");
+            Dialogs.showErrorDialog(LanguageBundle.getString("methodNotFound"));
         }
     }
 
-    public void openFile(ActionEvent event) {}
+    public void flagClicked(MouseEvent mouseEvent) {
+        setFlagParentsTransparent();
+        ((ImageView)mouseEvent.getSource()).getParent().setStyle("-fx-padding: 5; -fx-background-color: lightskyblue;");
+        LanguageBundle.setBundle(langMap.get((ImageView)mouseEvent.getSource()));
+        ((Stage)((ImageView) mouseEvent.getSource()).getScene().getWindow()).setTitle(LanguageBundle.getString("windowTitle"));
+
+    }
 }
