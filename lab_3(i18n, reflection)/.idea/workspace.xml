@@ -2,28 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="изменение языка готово">
-      <change afterPath="$PROJECT_DIR$/.idea/resourceBundles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lang.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lang_be_BY.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lang_en.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/LanguageBundle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang_r.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang_r_be_BY.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang_ru_RU.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/calc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/calc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/CalculateFunctionDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/CalculateFunctionDialog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/Dialogs.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/Dialogs.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab_3(i18n, reflection)/sample/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/calc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/CalculateFunctionDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/CalculateFunctionDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Dialogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Dialogs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -358,7 +337,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1570293534995" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1570293796282" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../lab_2(students_alg)" />
     <property name="recentsLimit" value="5" />
@@ -489,13 +468,36 @@
       <workItem from="1570172499164" duration="697000" />
       <workItem from="1570175871043" duration="33000" />
       <workItem from="1570175963054" duration="23000" />
-      <workItem from="1570281753376" duration="11455000" />
+      <workItem from="1570281753376" duration="11724000" />
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="изменение языка готово">
+      <created>1570293531694</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1570293531694</updated>
+    </task>
+    <task id="LOCAL-00003" summary="изменение языка готово">
+      <created>1570293570248</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1570293570248</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46575000" />
+    <option name="totallyTimeSpent" value="46844000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
