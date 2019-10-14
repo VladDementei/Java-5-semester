@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +11,7 @@
     <children>
         <ListView fx:id="listView" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
         </ListView>
-        <StackPane style="-fx-padding: 5;" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <StackPane style="-fx-padding: 5; -fx-background-color: lightskyblue;" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
           <ImageView fx:id="UKFlag" fitWidth="50.0" onMouseClicked="#flagClicked" pickOnBounds="true" preserveRatio="true">
              <image>
                 <Image url="@../resources/uk.png" />
@@ -24,5 +25,7 @@
              </image>
           </ImageView>
         </StackPane>
+      <Label fx:id="date" layoutX="15.0" layoutY="14.0" prefHeight="17.0"/>
+      <Label fx:id="currency" layoutX="15.0" layoutY="32.0" prefHeight="17.0"/>
     </children>
 </AnchorPane>

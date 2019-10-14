@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class Controller implements Initializable {
@@ -22,6 +24,10 @@ public class Controller implements Initializable {
     private ImageView BelFlag;
     @FXML
     private ImageView UKFlag;
+    @FXML
+    private Label date;
+    @FXML
+    public Label currency;
 
     private Map<ImageView, Locale> langMap;
     private ObservableList<String> functionsList;
@@ -41,7 +47,9 @@ public class Controller implements Initializable {
         langMap = new HashMap<>();
         langMap.put(UKFlag, Locale.UK);
         langMap.put(BelFlag, new Locale("be", "BY"));
-        setFlagParentsTransparent();
+        //setFlagParentsTransparent();
+        LocalizationBundle.setBundle(langMap.get(UKFlag));
+        updateLabels();
         listView.setItems(functionsList);
         listView.setOnMouseClicked(event -> {
             if(event.getClickCount() == 2) {
@@ -61,6 +69,13 @@ public class Controller implements Initializable {
         }
     }
 
+    private void updateLabels(){
+        date.setText(LocalizationBundle.getString("todayDate") + ": " +
+                DateFormat.getDateInstance(DateFormat.SHORT, LocalizationBundle.getLastSelectedLocale()).format(new Date()));
+        currency.setText(LocalizationBundle.getString("displayFormatOfCurrencyInYourCountry") + ": "+
+                NumberFormat.getCurrencyInstance(LocalizationBundle.getLastSelectedLocale()).format(1234.56));
+    }
+
     private void initFunctionDialog(){
         String signature = listView.getSelectionModel().getSelectedItem();
         try {
@@ -69,17 +84,17 @@ public class Controller implements Initializable {
                             ParseUtils.getParamsTypes(signature).toArray(new Class[0])));
             dialog.show();
         } catch (ClassNotFoundException e) {
-            Dialogs.showErrorDialog(LanguageBundle.getString("classNotFound"));
+            Dialogs.showErrorDialog(LocalizationBundle.getString("classNotFound"));
         } catch (NoSuchMethodException e) {
-            Dialogs.showErrorDialog(LanguageBundle.getString("methodNotFound"));
+            Dialogs.showErrorDialog(LocalizationBundle.getString("methodNotFound"));
         }
     }
 
     public void flagClicked(MouseEvent mouseEvent) {
         setFlagParentsTransparent();
         ((ImageView)mouseEvent.getSource()).getParent().setStyle("-fx-padding: 5; -fx-background-color: lightskyblue;");
-        LanguageBundle.setBundle(langMap.get((ImageView)mouseEvent.getSource()));
-        ((Stage)((ImageView) mouseEvent.getSource()).getScene().getWindow()).setTitle(LanguageBundle.getString("windowTitle"));
-
+        LocalizationBundle.setBundle(langMap.get((ImageView)mouseEvent.getSource()));
+        ((Stage)((ImageView) mouseEvent.getSource()).getScene().getWindow()).setTitle(LocalizationBundle.getString("windowTitle"));
+        updateLabels();
     }
 }
