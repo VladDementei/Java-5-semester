@@ -19,6 +19,14 @@ public class Student extends GroupInfo implements Serializable {
         return surname;
     }
 
+    public int getMarkMath() {
+        return markMath;
+    }
+
+    public int getMarkEP() {
+        return markEP;
+    }
+
     @Override
     public double getAverageMark(){
         return ((double)(markMath + markEP))/2;

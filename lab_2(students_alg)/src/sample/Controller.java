@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -117,6 +118,10 @@ public class Controller implements Initializable {
     public void addStudent(ActionEvent event){
         AddStudentDialog dialog = new AddStudentDialog();
         Student newStudent = dialog.startDialog();
+        addStudentToList(newStudent);
+    }
+
+    private void addStudentToList(Student newStudent){
         if(newStudent != null){
             if(studentObservableList.stream().anyMatch(elem -> elem.getGroup() == newStudent.getGroup())){
                 long index = studentObservableList.stream()
@@ -155,5 +160,48 @@ public class Controller implements Initializable {
                 .collect(Collectors.toList());
         return groupList.stream()
                 .reduce(0.0, (acc, student) -> acc + student.getAverageMark(), Double::sum)/Math.max(1,groupList.size());// что бы не было Nan
+    }
+
+    public void readDataBase(ActionEvent event) {
+        try {
+            StudentDataBase db = new StudentDataBase();
+            ArrayList<Student> newStudents = db.readStudents();
+            studentObservableList.clear();
+            for(Student student: newStudents){
+                addStudentToList(student);
+            }
+            db.close();
+            Dialogs.showConfirmDialog("Success read from db");
+        } catch (ClassNotFoundException e) {
+            Dialogs.showErrorDialog("JDBC not found");
+        } catch (SQLException e) {
+            Dialogs.showErrorDialog("SQL error " + e.getMessage());
+        }
+    }
+
+    public void saveDataBase(ActionEvent event) {
+        try {
+            StudentDataBase db = new StudentDataBase();
+            db.writeStudents(new ArrayList<>(studentObservableList));
+            db.close();
+            Dialogs.showConfirmDialog("Success write to db");
+        } catch (ClassNotFoundException e) {
+            Dialogs.showErrorDialog("JDBC not found");
+        } catch (SQLException e) {
+            Dialogs.showErrorDialog("SQL error " + e.getMessage());
+        }
+    }
+
+    public void recreateDataBaseTable(ActionEvent event) {
+        try {
+            StudentDataBase db = new StudentDataBase();
+            db.createTable();
+            db.close();
+            Dialogs.showConfirmDialog("Success recreate table in db");
+        } catch (ClassNotFoundException e) {
+            Dialogs.showErrorDialog("JDBC not found");
+        } catch (SQLException e) {
+            Dialogs.showErrorDialog("SQL error " + e.getMessage());
+        }
     }
 }

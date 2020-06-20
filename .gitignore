@@ -1,0 +1,11 @@
+
+lab_2(students_alg)/.idea/workspace.xml
+# file: ~/.gitignore_global
+.DS_Store
+.idea
+target
+documentation
+java_doc
+out
+*.iml
+*.exe

@@ -9,4 +9,9 @@ public class Dialogs {
         Alert alert = new Alert(Alert.AlertType.ERROR, contentText, ButtonType.CLOSE);
         alert.showAndWait();
     }
+
+    public static void showConfirmDialog(String contentText){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, contentText, ButtonType.CLOSE);
+        alert.showAndWait();
+    }
 }

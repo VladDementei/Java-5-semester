@@ -21,6 +21,9 @@
                     <items>
                         <MenuItem fx:id="menuOpenData" mnemonicParsing="false" onAction="#openFile" text="Open data file" />
                         <MenuItem fx:id="menuSaveData" mnemonicParsing="false" onAction="#saveFile" text="Save data to file" />
+                        <MenuItem fx:id="menuReadDB" mnemonicParsing="false" onAction="#readDataBase" text="Read data from DB" />
+                        <MenuItem fx:id="menuSaveDB" mnemonicParsing="false" onAction="#saveDataBase" text="Save data to DB" />
+                        <MenuItem fx:id="menuRereateTable" mnemonicParsing="false" onAction="#recreateDataBaseTable" text="Recreate table in DB" />
                         <MenuItem fx:id="menuAddStudent" mnemonicParsing="false" onAction="#addStudent" text="Add student" />
                         <MenuItem fx:id="menuAnalyze" mnemonicParsing="false" onAction="#analyze" text="Sort" />
                     </items>
